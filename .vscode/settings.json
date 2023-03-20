@@ -24,7 +24,7 @@
 	"files.watcherExclude": {
 		"**/dist": true
 	},
-	"git.enableCommitSigning": true,
+	"git.enableCommitSigning": false,
 	"javascript.format.enable": false,
 	"stylelint.validate": ["css"],
 	"typescript.disableAutomaticTypeAcquisition": true,

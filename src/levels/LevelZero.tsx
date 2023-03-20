@@ -1,5 +1,6 @@
 function LevelZero() {
-	return <p style={{ height: '900px', backgroundColor: 'red' }}>ZERRRRo</p>
+	const flagText = 'flag{easy}'
+	return <p style={{ height: '200px' }}>{flagText}</p>
 }
 
 export default LevelZero

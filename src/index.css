@@ -25,3 +25,21 @@
 		src: url('/fonts/Inter-Bold.woff2') format('woff2');
 	}
 }
+
+html {
+	height: 100vh;
+}
+
+body {
+	height: 100%;
+}
+
+#root {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+body > #root > main {
+	flex: 1;
+}

@@ -3,10 +3,11 @@ const imageStyle = {
 	width: 'auto'
 }
 
-function AppBar() {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+function AppBar(properties: { level: number }) {
 	return (
 		<div
-			className='sticky top-0 h-16 w-full grid-cols-3 items-center px-6 shadow-md'
+			className='sticky top-0 h-16 w-full flex-shrink-0 grid-cols-3 items-center px-6 shadow-md'
 			style={{ backgroundColor: '#ffe600', display: 'grid' }}
 		>
 			<img
@@ -20,6 +21,9 @@ function AppBar() {
 			>
 				Capture the Flag
 			</h1>
+			<p className='text-slate-700' style={{ textAlign: 'right' }}>
+				Level: {properties.level}
+			</p>
 		</div>
 	)
 }
