@@ -3,7 +3,7 @@ import AppBar from 'components/AppBar'
 import LevelOne from 'levels/LevelOne'
 import LevelZero from 'levels/LevelZero'
 import type { ReactElement, ReactNode } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
 interface Level {
 	flag: string
@@ -15,7 +15,7 @@ interface Level {
 }
 
 export default function App(): ReactElement {
-	// const navigate = useNavigate()
+	const navigate = useNavigate()
 
 	const levels: Level[] = [
 		{
@@ -31,9 +31,9 @@ export default function App(): ReactElement {
 			flag: 'now-we-are-cooking-with-gas',
 			hint: 'Surely you don\t need a hint..',
 			levelNumber: 1,
-			levelTitle: 'Humble Beginnings',
+			levelTitle: 'Hidden in Plain Sight',
 			description:
-				'Copy the word inside the brackets, and paste it into the flag text field. flag{easy}',
+				"What if I told you that the the flag is staring at you in the face. You just can't see it.",
 			component: <LevelOne />
 		}
 	]
@@ -42,27 +42,31 @@ export default function App(): ReactElement {
 		if (window.location.pathname === '/') {
 			return levels.find(l => l.levelNumber === 0)
 		}
-		console.log(levels.find(l => l.flag === window.location.pathname))
-		return levels.find(l => l.flag === window.location.pathname)
+
+		const previousLevel = levels.find(l => l.flag === window.location.pathname)
+
+		if (previousLevel) {
+			return levels.find(l => l.levelNumber === previousLevel.levelNumber + 1)
+		}
+
+		return undefined
 	}
 
-	// function goToNextLevel() {
-	// 	const currentLevel = getCurrentLevel()
+	function getRouteForLevel(level: Level): string | undefined {
+		if (level.levelNumber === 0) return ''
 
-	// 	if (currentLevel) {
-	// 		// eslint-disable-next-line @typescript-eslint/no-magic-numbers
-	// 		const nextLevel = levels.find(
-	// 			l => l.levelNumber === currentLevel.levelNumber + 1
-	// 		)
+		return levels.find(l => l.levelNumber === level.levelNumber - 1)?.flag
+	}
 
-	// 		if (nextLevel) {
-	// 			navigate(nextLevel.flag)
-	// 		}
-	// 	}
-	// }
+	function onClickGoToNextLevel(): void {
+		navigate(getCurrentLevel()?.flag ?? '')
+	}
 
 	return (
-		<BrowserRouter>
+		// <BrowserRouter>
+
+		// </BrowserRouter>
+		<>
 			<AppBar level={getCurrentLevel()?.levelNumber ?? 0} />
 
 			<main className='container mx-auto h-full p-8'>
@@ -73,7 +77,7 @@ export default function App(): ReactElement {
 					{levels.map(level => (
 						<Route
 							key={level.flag}
-							path={level.levelNumber === 0 ? '/' : level.flag}
+							path={getRouteForLevel(level)}
 							element={level.component}
 						/>
 					))}
@@ -81,7 +85,9 @@ export default function App(): ReactElement {
 
 				<form>
 					<input type='text' name='' id='' />
-					<button type='submit'>next level</button>
+					<button onClick={(): void => onClickGoToNextLevel()} type='submit'>
+						next level
+					</button>
 				</form>
 			</main>
 
@@ -93,6 +99,6 @@ export default function App(): ReactElement {
 				<p>ZZEN9203</p>
 				<p>Assessment 2</p>
 			</footer>
-		</BrowserRouter>
+		</>
 	)
 }

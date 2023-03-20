@@ -1,6 +1,7 @@
 import App from 'App'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import { registerSW } from 'virtual:pwa-register'
 import './index.css'
 
@@ -10,8 +11,10 @@ const container = document.querySelector('#root')
 if (container) {
 	const root = createRoot(container)
 	root.render(
-		<StrictMode>
-			<App />
-		</StrictMode>
+		<BrowserRouter>
+			<StrictMode>
+				<App />
+			</StrictMode>
+		</BrowserRouter>
 	)
 }
