@@ -43,7 +43,11 @@ export default function App(): ReactElement {
 			return levels.find(l => l.levelNumber === 0)
 		}
 
-		const previousLevel = levels.find(l => l.flag === window.location.pathname)
+		const previousLevel = levels.find(
+			l => l.flag === window.location.pathname.slice(1)
+		)
+
+		console.log(previousLevel, window.location.pathname)
 
 		if (previousLevel) {
 			return levels.find(l => l.levelNumber === previousLevel.levelNumber + 1)
@@ -63,9 +67,6 @@ export default function App(): ReactElement {
 	}
 
 	return (
-		// <BrowserRouter>
-
-		// </BrowserRouter>
 		<>
 			<AppBar level={getCurrentLevel()?.levelNumber ?? 0} />
 
