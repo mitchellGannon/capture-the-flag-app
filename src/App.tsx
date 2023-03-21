@@ -31,7 +31,7 @@ export default function App(): ReactElement {
 			levelNumber: 0,
 			levelTitle: 'Humble Beginnings.',
 			description:
-				'Copy the word inside the brackets, and paste it into the flag text field.',
+				'Copy the word inside the brackets, and paste it into the flag input text field below.',
 			component: <LevelZero flag={LevelZeroFlag} />
 		},
 		{
@@ -53,8 +53,6 @@ export default function App(): ReactElement {
 		const previousLevel = levels.find(
 			l => l.flag === window.location.pathname.slice(1)
 		)
-
-		console.log(previousLevel, window.location.pathname)
 
 		if (previousLevel) {
 			return levels.find(l => l.levelNumber === previousLevel.levelNumber + 1)
@@ -83,29 +81,42 @@ export default function App(): ReactElement {
 		<>
 			<AppBar level={getCurrentLevel()?.levelNumber ?? 0} />
 
-			<main className='container mx-auto flex h-full flex-col gap-y-8 p-8'>
-				<h1 className='text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
+			<main className='container mx-auto flex h-full max-w-5xl flex-col gap-y-8 p-8'>
+				<h1 className='mt-8 text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
 				<p>{getCurrentLevel()?.description}</p>
 
-				<Routes>
-					{levels.map(level => (
-						<Route
-							key={level.flag}
-							path={getRouteForLevel(level)}
-							element={level.component}
-						/>
-					))}
-				</Routes>
+				<div className='rounded-3xl bg-slate-100 p-8 dark:text-black'>
+					<Routes>
+						{levels.map(level => (
+							<Route
+								key={level.flag}
+								path={getRouteForLevel(level)}
+								element={level.component}
+							/>
+						))}
+					</Routes>
+				</div>
 
-				<form className=''>
-					<input
-						value={flagInput}
-						onChange={e => setFlagInput(e.target.value)}
-					/>
+				<form className='flex flex-row items-center gap-8 rounded-3xl border-8 border-solid border-slate-100 p-7'>
+					<h3 className='mx-auto'>Flag Input</h3>
+					<div>
+						flag&#123;
+						<input
+							className='mx-2 h-14 w-72 rounded-3xl px-4 text-black caret-black'
+							value={flagInput}
+							onChange={e => setFlagInput(e.target.value)}
+						/>
+						&#125;
+					</div>
 					<button
+						className='h-14 w-32 rounded-3xl bg-green-700'
 						disabled={flagIsInvalid()}
 						onClick={(): void => onClickGoToNextLevel()}
 						type='submit'
+						style={{
+							background: flagIsInvalid() ? 'gray' : '#ffe600',
+							color: flagIsInvalid() ? 'white' : 'black'
+						}}
 					>
 						next level
 					</button>
