@@ -1,8 +1,12 @@
+/* eslint-disable unicorn/prevent-abbreviations */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable react/jsx-handler-names */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import AppBar from 'components/AppBar'
 import LevelOne from 'levels/LevelOne'
 import LevelZero from 'levels/LevelZero'
 import type { ReactElement, ReactNode } from 'react'
+import { useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
 interface Level {
@@ -15,26 +19,29 @@ interface Level {
 }
 
 export default function App(): ReactElement {
+	const [flagInput, setFlagInput] = useState('')
 	const navigate = useNavigate()
+	const LevelZeroFlag = 'easy'
+	const LevelOneFlag = 'now-we-are-cooking-with-gas'
 
 	const levels: Level[] = [
 		{
-			flag: 'easy',
+			flag: LevelZeroFlag,
 			hint: 'Surely you don\t need a hint..',
 			levelNumber: 0,
-			levelTitle: 'Humble Beginnings',
+			levelTitle: 'Humble Beginnings.',
 			description:
 				'Copy the word inside the brackets, and paste it into the flag text field.',
-			component: <LevelZero />
+			component: <LevelZero flag={LevelZeroFlag} />
 		},
 		{
-			flag: 'now-we-are-cooking-with-gas',
+			flag: LevelOneFlag,
 			hint: 'Surely you don\t need a hint..',
 			levelNumber: 1,
-			levelTitle: 'Hidden in Plain Sight',
+			levelTitle: 'Hidden in Plain Sight.',
 			description:
 				"What if I told you that the the flag is staring at you in the face. You just can't see it.",
-			component: <LevelOne />
+			component: <LevelOne flag={LevelOneFlag} />
 		}
 	]
 
@@ -63,6 +70,7 @@ export default function App(): ReactElement {
 	}
 
 	function onClickGoToNextLevel(): void {
+		alert('Congratulations!')
 		navigate(getCurrentLevel()?.flag ?? '')
 	}
 
@@ -70,7 +78,7 @@ export default function App(): ReactElement {
 		<>
 			<AppBar level={getCurrentLevel()?.levelNumber ?? 0} />
 
-			<main className='container mx-auto h-full p-8'>
+			<main className='container mx-auto flex h-full flex-col gap-y-8 p-8'>
 				<h1 className='text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
 				<p>{getCurrentLevel()?.description}</p>
 
@@ -84,8 +92,11 @@ export default function App(): ReactElement {
 					))}
 				</Routes>
 
-				<form>
-					<input type='text' name='' id='' />
+				<form className=''>
+					<input
+						value={flagInput}
+						onChange={e => setFlagInput(e.target.value)}
+					/>
 					<button onClick={(): void => onClickGoToNextLevel()} type='submit'>
 						next level
 					</button>

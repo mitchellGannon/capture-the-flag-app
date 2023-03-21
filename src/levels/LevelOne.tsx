@@ -1,9 +1,13 @@
-function LevelOne(): JSX.Element {
-	const hiddenFlag = 'flag{now-we-are-cooking-with-gas}'
+import { formatFlag } from 'helpers/utilities'
+
+/* eslint-disable react/destructuring-assignment */
+function LevelOne(properties: { flag: string }): JSX.Element {
 	return (
 		<p>
-			Absolutely nothing to see here....{' '}
-			<span style={{ visibility: 'hidden' }}>{hiddenFlag}</span>
+			Absolutely nothing to see here....
+			<span style={{ visibility: 'hidden' }}>
+				flag{formatFlag(properties.flag)}
+			</span>
 		</p>
 	)
 }
