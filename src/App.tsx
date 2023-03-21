@@ -69,8 +69,13 @@ export default function App(): ReactElement {
 		return levels.find(l => l.levelNumber === level.levelNumber - 1)?.flag
 	}
 
+	function flagIsInvalid(): boolean {
+		return flagInput !== getCurrentLevel()?.flag
+	}
+
 	function onClickGoToNextLevel(): void {
 		alert('Congratulations!')
+		setFlagInput('')
 		navigate(getCurrentLevel()?.flag ?? '')
 	}
 
@@ -97,7 +102,11 @@ export default function App(): ReactElement {
 						value={flagInput}
 						onChange={e => setFlagInput(e.target.value)}
 					/>
-					<button onClick={(): void => onClickGoToNextLevel()} type='submit'>
+					<button
+						disabled={flagIsInvalid()}
+						onClick={(): void => onClickGoToNextLevel()}
+						type='submit'
+					>
 						next level
 					</button>
 				</form>
