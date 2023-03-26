@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 const imageStyle = {
 	height: '45px',
 	width: 'auto'

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable react/jsx-handler-names */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-import { Collapse } from 'antd'
+import { Collapse, message } from 'antd'
 import AppBar from 'components/AppBar'
 import LevelOne from 'levels/LevelOne'
 import LevelZero from 'levels/LevelZero'
@@ -26,6 +26,13 @@ export default function App(): ReactElement {
 	const navigate = useNavigate()
 	const LevelZeroFlag = 'easy'
 	const LevelOneFlag = 'now-we-are-cooking-with-gas'
+	const [messageApi, contextHolder] = message.useMessage()
+	const success = () => {
+		void messageApi.open({
+			type: 'success',
+			content: 'Congratulations!'
+		})
+	}
 
 	const levels: Level[] = [
 		{
@@ -75,20 +82,20 @@ export default function App(): ReactElement {
 	}
 
 	function onClickGoToNextLevel(): void {
-		alert('Congratulations!')
 		setFlagInput('')
+		success()
 		navigate(getCurrentLevel()?.flag ?? '')
 	}
 
 	return (
 		<>
 			<AppBar level={getCurrentLevel()?.levelNumber ?? 0} />
-
+			{contextHolder}
 			<main className='container mx-auto flex h-full max-w-5xl flex-col gap-y-8 p-8'>
 				<h1 className='mt-8 text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
 				<p>{getCurrentLevel()?.description}</p>
 
-				<div className='rounded-3xl bg-slate-100 p-8 drop-shadow dark:text-black'>
+				<div className='h-72 rounded-3xl bg-slate-100 p-8 drop-shadow dark:text-black'>
 					<Routes>
 						{levels.map(level => (
 							<Route
@@ -117,7 +124,7 @@ export default function App(): ReactElement {
 						<h3 className='text-3xl text-black'>&#125;</h3>
 					</div>
 					<button
-						className='h-14 w-32 rounded-3xl bg-green-700'
+						className='h-14 w-32 rounded-3xl'
 						disabled={flagIsInvalid()}
 						onClick={(): void => onClickGoToNextLevel()}
 						type='submit'
@@ -130,7 +137,6 @@ export default function App(): ReactElement {
 					</button>
 				</form>
 			</main>
-
 			<footer
 				className='h-12 flex-shrink-0 grid-cols-3 items-center bg-slate-900 px-4 text-center text-zinc-300'
 				style={{ display: 'grid' }}
