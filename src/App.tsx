@@ -2,12 +2,15 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable react/jsx-handler-names */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
+import { Collapse } from 'antd'
 import AppBar from 'components/AppBar'
 import LevelOne from 'levels/LevelOne'
 import LevelZero from 'levels/LevelZero'
 import type { ReactElement, ReactNode } from 'react'
 import { useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
+
+const { Panel } = Collapse
 
 interface Level {
 	flag: string
@@ -96,6 +99,12 @@ export default function App(): ReactElement {
 						))}
 					</Routes>
 				</div>
+
+				<Collapse className='drop-shadow'>
+					<Panel header='hint?' key='1'>
+						<p>{getCurrentLevel()?.hint}</p>
+					</Panel>
+				</Collapse>
 
 				<form className='ml-auto flex w-min flex-row items-center gap-8 rounded-3xl bg-slate-100 p-7 drop-shadow'>
 					<div className='flex flex-row items-center'>
