@@ -5,6 +5,7 @@
 import { Collapse, message } from 'antd'
 import AppBar from 'components/AppBar'
 import LevelOne from 'levels/LevelOne'
+import LevelTwo from 'levels/LevelTwo'
 import LevelZero from 'levels/LevelZero'
 import type { ReactElement, ReactNode } from 'react'
 import { useState } from 'react'
@@ -26,6 +27,7 @@ export default function App(): ReactElement {
 	const navigate = useNavigate()
 	const LevelZeroFlag = 'easy'
 	const LevelOneFlag = 'now-we-are-cooking-with-gas'
+	const LevelTwoFlag = 'that-cannot-be-good'
 	const [messageApi, contextHolder] = message.useMessage()
 	const success = () => {
 		void messageApi.open({
@@ -46,12 +48,21 @@ export default function App(): ReactElement {
 		},
 		{
 			flag: LevelOneFlag,
-			hint: 'Surely you don\t need a hint..',
+			hint: 'Developer tools are great for locating issues within your application. Maybe the developer had accidently left an element in the page. You should check it out! 😅',
 			levelNumber: 1,
 			levelTitle: 'Hidden in Plain Sight.',
 			description:
 				"What if I told you that the the flag is staring at you in the face. You just can't see it.",
 			component: <LevelOne flag={LevelOneFlag} />
+		},
+		{
+			flag: LevelTwoFlag,
+			hint: 'See if you can cause an error on the page and then check the developer tools for some insight into what has taken place.',
+			levelNumber: 2,
+			levelTitle: 'Human Error.',
+			description:
+				'How many cyber security events are caused by insecure code? Code is pushed into production without the proper integrity checks.',
+			component: <LevelTwo flag={LevelTwoFlag} />
 		}
 	]
 
