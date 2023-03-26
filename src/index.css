@@ -43,3 +43,7 @@ body {
 body > #root > main {
 	flex: 1;
 }
+
+.ant-collapse {
+	background: #fce600;
+}

@@ -36,6 +36,20 @@ export default function App(): ReactElement {
 		})
 	}
 
+	const [activeKeys, setActiveKeys] = useState<string[]>([])
+
+	const closePanel = (key: string) => {
+		setActiveKeys(activeKeys.filter(activeKey => activeKey !== key))
+	}
+
+	const onCollapseChange = (keys: string[] | string) => {
+		if (Array.isArray(keys)) {
+			setActiveKeys(keys)
+		} else {
+			setActiveKeys([keys])
+		}
+	}
+
 	const levels: Level[] = [
 		{
 			flag: LevelZeroFlag,
@@ -95,6 +109,7 @@ export default function App(): ReactElement {
 	function onClickGoToNextLevel(): void {
 		setFlagInput('')
 		success()
+		closePanel('1')
 		navigate(getCurrentLevel()?.flag ?? '')
 	}
 
@@ -106,6 +121,7 @@ export default function App(): ReactElement {
 				<h1 className='mt-8 text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
 				<p>{getCurrentLevel()?.description}</p>
 
+				{/* challenge space */}
 				<div className='h-72 rounded-3xl bg-slate-100 p-8 drop-shadow dark:text-black'>
 					<Routes>
 						{levels.map(level => (
@@ -118,12 +134,18 @@ export default function App(): ReactElement {
 					</Routes>
 				</div>
 
-				<Collapse className='drop-shadow'>
+				{/* hint collapsable */}
+				<Collapse
+					className='drop-shadow'
+					activeKey={activeKeys}
+					onChange={onCollapseChange}
+				>
 					<Panel header='hint?' key='1'>
 						<p>{getCurrentLevel()?.hint}</p>
 					</Panel>
 				</Collapse>
 
+				{/* flag input form */}
 				<form className='ml-auto flex w-min flex-row items-center gap-8 rounded-3xl bg-slate-100 p-7 drop-shadow'>
 					<div className='flex flex-row items-center'>
 						<h3 className='text-3xl text-black'>flag&#123;</h3>
