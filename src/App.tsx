@@ -85,7 +85,7 @@ export default function App(): ReactElement {
 				<h1 className='mt-8 text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
 				<p>{getCurrentLevel()?.description}</p>
 
-				<div className='rounded-3xl bg-slate-100 p-8 dark:text-black'>
+				<div className='rounded-3xl bg-slate-100 p-8 drop-shadow dark:text-black'>
 					<Routes>
 						{levels.map(level => (
 							<Route
@@ -97,16 +97,15 @@ export default function App(): ReactElement {
 					</Routes>
 				</div>
 
-				<form className='flex flex-row items-center gap-8 rounded-3xl border-8 border-solid border-slate-100 p-7'>
-					<h3 className='mx-auto'>Flag Input</h3>
-					<div>
-						flag&#123;
+				<form className='ml-auto flex w-min flex-row items-center gap-8 rounded-3xl bg-slate-100 p-7 drop-shadow'>
+					<div className='flex flex-row items-center'>
+						<h3 className='text-3xl text-black'>flag&#123;</h3>
 						<input
-							className='mx-2 h-14 w-72 rounded-3xl px-4 text-black caret-black'
+							className='mx-2 h-14 w-72 rounded-3xl border-white px-4 text-black caret-black'
 							value={flagInput}
 							onChange={e => setFlagInput(e.target.value)}
 						/>
-						&#125;
+						<h3 className='text-3xl text-black'>&#125;</h3>
 					</div>
 					<button
 						className='h-14 w-32 rounded-3xl bg-green-700'
