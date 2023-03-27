@@ -9,7 +9,7 @@ function AppBar(properties: { level: number }) {
 	return (
 		<div
 			className='sticky top-0 h-16 w-full flex-shrink-0 grid-cols-3 items-center px-6 shadow-md'
-			style={{ backgroundColor: '#ffe600', display: 'grid' }}
+			style={{ backgroundColor: '#ffe600', display: 'grid', zIndex: 10 }}
 		>
 			<img
 				src='../../assets/unsw_logo.png'

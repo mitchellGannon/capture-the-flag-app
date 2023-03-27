@@ -5,6 +5,7 @@
 import { Collapse, message } from 'antd'
 import AppBar from 'components/AppBar'
 import LevelOne from 'levels/LevelOne'
+import LevelThree from 'levels/LevelThree'
 import LevelTwo from 'levels/LevelTwo'
 import LevelZero from 'levels/LevelZero'
 import type { ReactElement, ReactNode } from 'react'
@@ -28,6 +29,7 @@ export default function App(): ReactElement {
 	const LevelZeroFlag = 'easy'
 	const LevelOneFlag = 'now-we-are-cooking-with-gas'
 	const LevelTwoFlag = 'that-cannot-be-good'
+	const LevelThreeFlag = 'its-about-to-get-tricky'
 	const [messageApi, contextHolder] = message.useMessage()
 	const success = () => {
 		void messageApi.open({
@@ -77,6 +79,15 @@ export default function App(): ReactElement {
 			description:
 				'How many cyber security events are caused by insecure code? Code is pushed into production without the proper integrity checks.',
 			component: <LevelTwo flag={LevelTwoFlag} />
+		},
+		{
+			flag: LevelThreeFlag,
+			hint: "You have completed fundamentals. This is where you have learnt how to decode transposition ciphers. Let's see how much you remember.",
+			levelNumber: 3,
+			levelTitle: 'A Tricky Cipher',
+			description:
+				'How many cyber security events are caused by insecure code? Code is pushed into production without the proper integrity checks.',
+			component: <LevelThree flag={LevelThreeFlag} />
 		}
 	]
 
@@ -114,15 +125,18 @@ export default function App(): ReactElement {
 	}
 
 	return (
-		<>
+		<div className='flex flex-col'>
 			<AppBar level={getCurrentLevel()?.levelNumber ?? 0} />
 			{contextHolder}
-			<main className='container mx-auto flex h-full max-w-5xl flex-col gap-y-8 p-8'>
+			<main className='container mx-auto flex h-full max-w-5xl flex-grow flex-col gap-y-8 p-8'>
 				<h1 className='mt-8 text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
 				<p>{getCurrentLevel()?.description}</p>
 
 				{/* challenge space */}
-				<div className='h-72 rounded-3xl bg-slate-100 p-8 drop-shadow dark:text-black'>
+				<div
+					className='grow rounded-3xl bg-slate-100 p-8 drop-shadow dark:text-black'
+					style={{ minHeight: '250px' }}
+				>
 					<Routes>
 						{levels.map(level => (
 							<Route
@@ -171,13 +185,13 @@ export default function App(): ReactElement {
 				</form>
 			</main>
 			<footer
-				className='h-12 flex-shrink-0 grid-cols-3 items-center bg-slate-900 px-4 text-center text-zinc-300'
+				className='h-12 grid-cols-3 items-center bg-slate-900 px-4 text-center text-zinc-300'
 				style={{ display: 'grid' }}
 			>
 				<p>Mitchell Gannon</p>
 				<p>ZZEN9203</p>
 				<p>Assessment 2</p>
 			</footer>
-		</>
+		</div>
 	)
 }
