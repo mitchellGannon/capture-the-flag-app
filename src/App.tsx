@@ -82,11 +82,11 @@ export default function App(): ReactElement {
 		},
 		{
 			flag: LevelThreeFlag,
-			hint: "You have completed fundamentals. This is where you have learnt how to decode transposition ciphers. Let's see how much you remember.",
+			hint: 'The key to this one is to alternate going from left to right when you input the characters in the grid. So, go from left to right for the first row, and right to left for the second row.',
 			levelNumber: 3,
 			levelTitle: 'A Tricky Cipher',
 			description:
-				'How many cyber security events are caused by insecure code? Code is pushed into production without the proper integrity checks.',
+				'Transpose the cipher text using the grid. Once the characters have been input in the correct order, the flag will be revealed to you.',
 			component: <LevelThree flag={LevelThreeFlag} />
 		}
 	]
@@ -125,10 +125,10 @@ export default function App(): ReactElement {
 	}
 
 	return (
-		<div className='flex flex-col'>
+		<div className='flex h-full flex-col'>
 			<AppBar level={getCurrentLevel()?.levelNumber ?? 0} />
 			{contextHolder}
-			<main className='container mx-auto flex h-full max-w-5xl flex-grow flex-col gap-y-8 p-8'>
+			<main className='container mx-auto flex max-w-5xl flex-col gap-y-8 p-8'>
 				<h1 className='mt-8 text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
 				<p>{getCurrentLevel()?.description}</p>
 
@@ -185,8 +185,8 @@ export default function App(): ReactElement {
 				</form>
 			</main>
 			<footer
-				className='h-12 grid-cols-3 items-center bg-slate-900 px-4 text-center text-zinc-300'
-				style={{ display: 'grid' }}
+				className='h-12 flex-shrink-0 grid-cols-3 items-center bg-slate-900 px-4 text-center text-zinc-300'
+				style={{ display: 'grid', marginTop: 'auto' }}
 			>
 				<p>Mitchell Gannon</p>
 				<p>ZZEN9203</p>
