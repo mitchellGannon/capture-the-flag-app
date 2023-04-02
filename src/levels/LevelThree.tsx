@@ -19,7 +19,15 @@ function LevelThree(properties: { flag: string }): JSX.Element {
 					setReveal(formatFlag(properties.flag))
 				}}
 			/>
-			<p>{reveal}</p>
+			{reveal !== '' && (
+				<div
+					className='mt-8 flex flex-row justify-between rounded bg-green-200 p-4'
+					style={{ width: '100%' }}
+				>
+					<p>Correct!</p>
+					<p>{formatFlag(properties.flag)}</p>
+				</div>
+			)}
 		</div>
 	)
 }

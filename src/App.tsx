@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { Collapse, message } from 'antd'
 import AppBar from 'components/AppBar'
+import LevelFive from 'levels/LevelFive'
 import LevelFour from 'levels/LevelFour'
 import LevelOne from 'levels/LevelOne'
 import LevelThree from 'levels/LevelThree'
@@ -32,6 +33,7 @@ export default function App(): ReactElement {
 	const LevelTwoFlag = 'that-cannot-be-good'
 	const LevelThreeFlag = 'its-about-to-get-tricky'
 	const LevelFourFlag = 'unstoppable'
+	const LevelFiveFlag = 'ctf-completed'
 	const [messageApi, contextHolder] = message.useMessage()
 	const success = () => {
 		void messageApi.open({
@@ -99,6 +101,15 @@ export default function App(): ReactElement {
 			description:
 				'Below are a set of challenges which pertain to the RSA algorithm. Wolfram Alpha is required for these challenges.',
 			component: <LevelFour flag={LevelFourFlag} />
+		},
+		{
+			flag: LevelFiveFlag,
+			hint: '',
+			levelNumber: 5,
+			levelTitle: 'The Final Boss',
+			description:
+				'Completing the below challenge will uncover a key, which will be used to decrypt a string of characters, using openssl.',
+			component: <LevelFive flag={LevelFiveFlag} />
 		}
 	]
 

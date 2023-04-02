@@ -4,6 +4,7 @@ overrides:
   headers-polyfill: 3.1.2
 
 specifiers:
+  '@ant-design/icons': ^5.0.1
   '@emotion/react': ^11.10.6
   '@emotion/styled': ^11.10.6
   '@nabla/vite-plugin-eslint': 1.5.0
@@ -69,6 +70,7 @@ specifiers:
   workbox-window: 6.5.4
 
 dependencies:
+  '@ant-design/icons': 5.0.1_biqbaboplfbrettd7655fr4n2y
   '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
   '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
   '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y

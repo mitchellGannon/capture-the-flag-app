@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable unicorn/new-for-builtins */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -7,8 +8,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable react/function-component-definition */
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { RedoOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
-import { Button } from 'antd'
 import type React from 'react'
 import { useEffect, useState } from 'react'
 
@@ -66,13 +67,12 @@ const GridCipher: React.FC<Properties> = ({ onCorrectCipher }) => {
 					/>
 				))}
 			</Grid>
-			<Button
-				className='drop-shadow-l'
+			<button
+				className='hover:bg-fce600 flex h-10 w-10 items-center justify-center bg-transparent transition-colors focus:outline-none'
 				onClick={() => setUserInput(Array(correctCipher.length).fill(''))}
-				type='primary'
 			>
-				Reset
-			</Button>
+				<RedoOutlined className='text-black hover:text-black' />
+			</button>
 		</div>
 	)
 }
