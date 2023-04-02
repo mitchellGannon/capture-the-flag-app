@@ -29,7 +29,7 @@ function LevelFour(properties: { flag: string }): JSX.Element {
 
 	return (
 		<div className='p-4'>
-			<form className='space-y-4'>
+			<form className='ml-auto mr-auto max-w-md space-y-4'>
 				<div>
 					<label htmlFor='modulus' className='mb-1 block'>
 						Find the modulus of {prime1} and {prime2}:
@@ -108,10 +108,10 @@ function LevelFour(properties: { flag: string }): JSX.Element {
 			</form>
 
 			{checkAnswer() && (
-				<p className='mt-4 rounded bg-green-200 p-2'>
-					All answers are correct. Here is your flag:{' '}
-					{formatFlag(properties.flag)}
-				</p>
+				<div className='mt-16 flex justify-between rounded bg-green-200 p-4'>
+					<p>All answers are correct.</p>
+					<p>{formatFlag(properties.flag)}</p>
+				</div>
 			)}
 		</div>
 	)

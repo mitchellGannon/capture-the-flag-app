@@ -93,7 +93,7 @@ export default function App(): ReactElement {
 		},
 		{
 			flag: LevelFourFlag,
-			hint: 'Given two prime numbers: p and q. Modulus = p * q. Euler Totient = (p - 1) * (q - 1).',
+			hint: 'Given two prime numbers: p and q. Modulus = p * q. Euler Totient = (p - 1) * (q - 1). Public key must be prime, less than the Totient, and not be a factor of the Totient. (Private key * public key) when modulus with the Totient must equal 1.',
 			levelNumber: 4,
 			levelTitle: 'RSA Key Generation',
 			description:
