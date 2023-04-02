@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable react/destructuring-assignment */
 const imageStyle = {
 	height: '45px',

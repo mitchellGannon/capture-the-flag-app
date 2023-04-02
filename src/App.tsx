@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { Collapse, message } from 'antd'
 import AppBar from 'components/AppBar'
+import LevelFour from 'levels/LevelFour'
 import LevelOne from 'levels/LevelOne'
 import LevelThree from 'levels/LevelThree'
 import LevelTwo from 'levels/LevelTwo'
@@ -30,6 +31,7 @@ export default function App(): ReactElement {
 	const LevelOneFlag = 'now-we-are-cooking-with-gas'
 	const LevelTwoFlag = 'that-cannot-be-good'
 	const LevelThreeFlag = 'its-about-to-get-tricky'
+	const LevelFourFlag = 'unstoppable'
 	const [messageApi, contextHolder] = message.useMessage()
 	const success = () => {
 		void messageApi.open({
@@ -88,6 +90,15 @@ export default function App(): ReactElement {
 			description:
 				'Transpose the cipher text using the grid. Once the characters have been input in the correct order, the flag will be revealed to you.',
 			component: <LevelThree flag={LevelThreeFlag} />
+		},
+		{
+			flag: LevelFourFlag,
+			hint: 'Given two prime numbers: p and q. Modulus = p * q. Euler Totient = (p - 1) * (q - 1).',
+			levelNumber: 4,
+			levelTitle: 'RSA Key Generation',
+			description:
+				'Below are a set of challenges which pertain to the RSA algorithm. Wolfram Alpha is required for these challenges.',
+			component: <LevelFour flag={LevelFourFlag} />
 		}
 	]
 
