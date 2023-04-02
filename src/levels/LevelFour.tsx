@@ -64,20 +64,20 @@ function LevelFour(properties: { flag: string }): JSX.Element {
 
 				<div>
 					<label className='mb-1 block'>Select the valid public key:</label>
-					{Array.from({ length: 3 }, (_, i) => i + 1).map(key => (
+					{Array.from({ length: 3 }, (_, i) => [3, 2, 10][i]).map(key => (
 						<div key={key}>
 							<input
 								type='radio'
 								id={`public-key-${key}`}
 								name='public-key'
-								value={key === 2 ? publicKey : key + 9}
+								value={key}
 								className='mr-1'
 								onChange={e =>
 									setSelectedPublicKey(Number.parseInt(e.target.value))
 								}
 							/>
 							<label htmlFor={`public-key-${key}`}>{key}</label>
-							{selectedPublicKey === publicKey && (
+							{selectedPublicKey === publicKey && key === publicKey && (
 								<span className='ml-1 inline-block text-green-500'>✓</span>
 							)}
 						</div>
@@ -86,24 +86,24 @@ function LevelFour(properties: { flag: string }): JSX.Element {
 
 				<div>
 					<label className='mb-1 block'>Select the valid private key:</label>
-					{Array.from({ length: 3 }, (_, index) => index + 1).map(key => (
+					{Array.from({ length: 3 }, (_, i) => [5, 7, 11][i]).map(key => (
 						<div key={key}>
 							<input
 								type='radio'
 								id={`private-key-${key}`}
 								name='private-key'
-								value={key === 2 ? privateKey : key + 5}
+								value={key}
 								className='mr-1'
 								onChange={e =>
 									setSelectedPrivateKey(Number.parseInt(e.target.value))
 								}
 							/>
-							<label htmlFor={`private-key-${key}`}>{key + 5}</label>
+							<label htmlFor={`private-key-${key}`}>{key}</label>
+							{selectedPrivateKey === privateKey && key === privateKey && (
+								<span className='ml-1 inline-block text-green-500'>✓</span>
+							)}
 						</div>
 					))}
-					{selectedPrivateKey === privateKey && (
-						<span className='text-green-500'>✓</span>
-					)}
 				</div>
 			</form>
 
