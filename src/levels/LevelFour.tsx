@@ -37,7 +37,7 @@ function LevelFour(properties: { flag: string }): JSX.Element {
 					<input
 						type='number'
 						id='modulus'
-						className='w-full border-2 p-1'
+						className='w-full rounded-md border-2 border-gray-300 px-2 py-1 focus:border-blue-500 focus:outline-none'
 						onChange={e => setModulusInput(Number.parseInt(e.target.value))}
 					/>
 					{modulusInput === modulus && (
@@ -52,7 +52,7 @@ function LevelFour(properties: { flag: string }): JSX.Element {
 					<input
 						type='number'
 						id='euler-totient'
-						className='w-full border-2 p-1'
+						className='w-full rounded-md border-2 border-gray-300 px-2 py-1 focus:border-blue-500 focus:outline-none'
 						onChange={e =>
 							setEulerTotientInput(Number.parseInt(e.target.value))
 						}
