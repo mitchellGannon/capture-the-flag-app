@@ -47,3 +47,39 @@ body > #root > main {
 .ant-collapse {
 	background: #fce600;
 }
+
+.fade-in-up {
+	animation: fade-in-up 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in-up {
+	0% {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.tilt-animation {
+	animation: tilt 4s ease-in-out infinite;
+	transform-origin: top center;
+}
+
+@keyframes tilt {
+	0%,
+	100% {
+		transform: rotate(0);
+	}
+
+	50% {
+		transform: rotate(5deg);
+	}
+}
+
+.flag-img {
+	width: 500px;
+}

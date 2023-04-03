@@ -167,7 +167,7 @@ export default function App(): ReactElement {
 			<AppBar level={getLevelNumber()} />
 			{contextHolder}
 			{!userHasWon && (
-				<main className='container mx-auto flex max-w-5xl flex-col gap-y-8 p-8'>
+				<main className='fade-in-up container mx-auto flex max-w-5xl flex-col gap-y-8 p-8'>
 					<h1 className='mt-8 text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
 					<p>{getCurrentLevel()?.description}</p>
 
