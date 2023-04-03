@@ -1,9 +1,12 @@
+/* eslint-disable react/jsx-no-leaked-render */
+/* eslint-disable unicorn/no-negated-condition */
 /* eslint-disable unicorn/prevent-abbreviations */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable react/jsx-handler-names */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { Collapse, message } from 'antd'
 import AppBar from 'components/AppBar'
+import Victory from 'components/Victory'
 import LevelFive from 'levels/LevelFive'
 import LevelFour from 'levels/LevelFour'
 import LevelOne from 'levels/LevelOne'
@@ -27,6 +30,7 @@ interface Level {
 
 export default function App(): ReactElement {
 	const [flagInput, setFlagInput] = useState('')
+	const [userHasWon, setUserHasWon] = useState(false)
 	const navigate = useNavigate()
 	const LevelZeroFlag = 'easy'
 	const LevelOneFlag = 'now-we-are-cooking-with-gas'
@@ -143,69 +147,84 @@ export default function App(): ReactElement {
 		setFlagInput('')
 		success()
 		closePanel('1')
-		navigate(getCurrentLevel()?.flag ?? '')
+		if (
+			getCurrentLevel()?.levelNumber !==
+			Math.max(...levels.map(l => l.levelNumber))
+		) {
+			navigate(getCurrentLevel()?.flag ?? '')
+		} else {
+			setUserHasWon(true)
+		}
+	}
+
+	function getLevelNumber(): number | undefined {
+		if (userHasWon) return Math.max(...levels.map(l => l.levelNumber)) + 1
+		return getCurrentLevel()?.levelNumber ?? 0
 	}
 
 	return (
 		<div className='flex h-full flex-col'>
-			<AppBar level={getCurrentLevel()?.levelNumber ?? 0} />
+			<AppBar level={getLevelNumber()} />
 			{contextHolder}
-			<main className='container mx-auto flex max-w-5xl flex-col gap-y-8 p-8'>
-				<h1 className='mt-8 text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
-				<p>{getCurrentLevel()?.description}</p>
+			{!userHasWon && (
+				<main className='container mx-auto flex max-w-5xl flex-col gap-y-8 p-8'>
+					<h1 className='mt-8 text-5xl'>{getCurrentLevel()?.levelTitle}</h1>
+					<p>{getCurrentLevel()?.description}</p>
 
-				{/* challenge space */}
-				<div
-					className='grow rounded-3xl bg-slate-100 p-8 drop-shadow dark:text-black'
-					style={{ minHeight: '250px' }}
-				>
-					<Routes>
-						{levels.map(level => (
-							<Route
-								key={level.flag}
-								path={getRouteForLevel(level)}
-								element={level.component}
-							/>
-						))}
-					</Routes>
-				</div>
-
-				{/* hint collapsable */}
-				<Collapse
-					className='drop-shadow'
-					activeKey={activeKeys}
-					onChange={onCollapseChange}
-				>
-					<Panel header='hint?' key='1'>
-						<p>{getCurrentLevel()?.hint}</p>
-					</Panel>
-				</Collapse>
-
-				{/* flag input form */}
-				<form className='ml-auto flex w-min flex-row items-center gap-8 rounded-3xl bg-slate-100 p-7 drop-shadow'>
-					<div className='flex flex-row items-center'>
-						<h3 className='text-3xl text-black'>flag&#123;</h3>
-						<input
-							className='mx-2 h-14 w-72 rounded-3xl border-white px-4 text-black caret-black'
-							value={flagInput}
-							onChange={e => setFlagInput(e.target.value)}
-						/>
-						<h3 className='text-3xl text-black'>&#125;</h3>
-					</div>
-					<button
-						className='h-14 w-32 rounded-3xl'
-						disabled={flagIsInvalid()}
-						onClick={(): void => onClickGoToNextLevel()}
-						type='submit'
-						style={{
-							background: flagIsInvalid() ? 'gray' : '#ffe600',
-							color: flagIsInvalid() ? 'white' : 'black'
-						}}
+					{/* challenge space */}
+					<div
+						className='grow rounded-3xl bg-slate-100 p-8 drop-shadow dark:text-black'
+						style={{ minHeight: '250px' }}
 					>
-						next level
-					</button>
-				</form>
-			</main>
+						<Routes>
+							{levels.map(level => (
+								<Route
+									key={level.flag}
+									path={getRouteForLevel(level)}
+									element={level.component}
+								/>
+							))}
+						</Routes>
+					</div>
+
+					{/* hint collapsable */}
+					<Collapse
+						className='drop-shadow'
+						activeKey={activeKeys}
+						onChange={onCollapseChange}
+					>
+						<Panel header='hint?' key='1'>
+							<p>{getCurrentLevel()?.hint}</p>
+						</Panel>
+					</Collapse>
+
+					{/* flag input form */}
+					<form className='ml-auto flex w-min flex-row items-center gap-8 rounded-3xl bg-slate-100 p-7 drop-shadow'>
+						<div className='flex flex-row items-center'>
+							<h3 className='text-3xl text-black'>flag&#123;</h3>
+							<input
+								className='mx-2 h-14 w-72 rounded-3xl border-white px-4 text-black caret-black'
+								value={flagInput}
+								onChange={e => setFlagInput(e.target.value)}
+							/>
+							<h3 className='text-3xl text-black'>&#125;</h3>
+						</div>
+						<button
+							className='h-14 w-32 rounded-3xl'
+							disabled={flagIsInvalid()}
+							onClick={(): void => onClickGoToNextLevel()}
+							type='submit'
+							style={{
+								background: flagIsInvalid() ? 'gray' : '#ffe600',
+								color: flagIsInvalid() ? 'white' : 'black'
+							}}
+						>
+							next level
+						</button>
+					</form>
+				</main>
+			)}
+			{userHasWon && <Victory />}
 			<footer
 				className='h-12 flex-shrink-0 grid-cols-3 items-center bg-slate-900 px-4 text-center text-zinc-300'
 				style={{ display: 'grid', marginTop: 'auto' }}
