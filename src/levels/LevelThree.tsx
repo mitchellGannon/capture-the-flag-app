@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable react/jsx-handler-names */
 /* eslint-disable react/destructuring-assignment */
 import { formatFlag } from 'helpers/utilities'

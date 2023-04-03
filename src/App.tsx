@@ -33,7 +33,7 @@ export default function App(): ReactElement {
 	const LevelTwoFlag = 'that-cannot-be-good'
 	const LevelThreeFlag = 'its-about-to-get-tricky'
 	const LevelFourFlag = 'unstoppable'
-	const LevelFiveFlag = 'ctf-completed'
+	const LevelFiveFlag = 'wow-you-are-clever'
 	const [messageApi, contextHolder] = message.useMessage()
 	const success = () => {
 		void messageApi.open({
@@ -104,7 +104,7 @@ export default function App(): ReactElement {
 		},
 		{
 			flag: LevelFiveFlag,
-			hint: '',
+			hint: 'To decrypt the frist message: message ^ (private key) mod N. The second one requires you to copy the encrypted text to a text file, and then run this command: openssl enc -aes-128-cbc -d -a -in YOUR_TEXT_FILE.txt -out decrypted_secret.txt -k ctf',
 			levelNumber: 5,
 			levelTitle: 'The Final Boss',
 			description:
