@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => ({
 			reportsDirectory: 'coverage'
 		}
 	},
+	base: '/capture-the-flag-app/',
 	plugins: [
 		tsconfigPaths(),
 		react(),

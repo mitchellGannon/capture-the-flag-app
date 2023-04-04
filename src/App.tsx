@@ -1,3 +1,5 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable react/jsx-no-leaked-render */
 /* eslint-disable unicorn/no-negated-condition */
 /* eslint-disable unicorn/prevent-abbreviations */
@@ -38,6 +40,7 @@ export default function App(): ReactElement {
 	const LevelThreeFlag = 'its-about-to-get-tricky'
 	const LevelFourFlag = 'unstoppable'
 	const LevelFiveFlag = 'wow-you-are-clever'
+	const AppBaseRoute = 'capture-the-flag-app/'
 	const [messageApi, contextHolder] = message.useMessage()
 	const success = () => {
 		void messageApi.open({
@@ -118,12 +121,12 @@ export default function App(): ReactElement {
 	]
 
 	function getCurrentLevel(): Level | undefined {
-		if (window.location.pathname === '/') {
+		if (window.location.pathname === `/${AppBaseRoute}`) {
 			return levels.find(l => l.levelNumber === 0)
 		}
 
 		const previousLevel = levels.find(
-			l => l.flag === window.location.pathname.slice(1)
+			l => l.flag === window.location.pathname.slice(AppBaseRoute.length + 1)
 		)
 
 		if (previousLevel) {
@@ -151,7 +154,7 @@ export default function App(): ReactElement {
 			getCurrentLevel()?.levelNumber !==
 			Math.max(...levels.map(l => l.levelNumber))
 		) {
-			navigate(getCurrentLevel()?.flag ?? '')
+			navigate(AppBaseRoute + getCurrentLevel()?.flag)
 		} else {
 			setUserHasWon(true)
 		}
@@ -180,7 +183,7 @@ export default function App(): ReactElement {
 							{levels.map(level => (
 								<Route
 									key={level.flag}
-									path={getRouteForLevel(level)}
+									path={AppBaseRoute + getRouteForLevel(level)}
 									element={level.component}
 								/>
 							))}
